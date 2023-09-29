@@ -1,0 +1,17 @@
+*
+
+!.gitignore
+
+!.zshrc
+!.ideavimrc
+
+!.config/
+.config/*
+
+!.config/alacritty/
+!.config/alacritty/**
+
+!.config/nvim/
+!.config/nvim/**
+
+.DS_Store
