@@ -1,0 +1,47 @@
+font:
+  normal:
+    family: FiraCode Nerd Font Mono
+    style: Regular
+
+  bold:
+    family: FiraCode Nerd Font Mono
+    style: Bold
+
+  italic:
+    family: FiraCode Nerd Font Mono
+    style: Italic
+
+  bold_italic:
+    family: FiraCode Nerd Font Mono
+    style: Bold Italic
+
+  size: 12
+
+colors:
+  primary:
+    background: "0x1b1b1b"
+    foreground: "0xc7c7c7"
+
+  cursor:
+    text: "0xfffefe"
+    cursor: "0xc7c7c7"
+
+  normal:
+    black: "0x000000"
+    red: "0xc91b00"
+    green: "0x00c200"
+    yellow: "0xc7c400"
+    blue: "0x0225c7"
+    magenta: "0xc930c7"
+    cyan: "0x00c5c7"
+    white: "0xc7c7c7"
+
+  bright:
+    black: "0x676767"
+    red: "0xff6d67"
+    green: "0x5ff967"
+    yellow: "0xfefb67"
+    blue: "0x6871ff"
+    magenta: "0xff76ff"
+    cyan: "0x5ffdff"
+    white: "0xfffefe"
