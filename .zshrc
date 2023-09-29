@@ -1,4 +1,6 @@
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+if [[ `uname -s` == "Darwin" ]]; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
 
 # creates a header using ANSI Shadow font (http://www.patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=`Text to transform`)
 # cat ~/.header.txt
@@ -89,9 +91,14 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ `uname -s` == "Darwin" ]]; then
+  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 
