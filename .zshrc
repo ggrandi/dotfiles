@@ -1,10 +1,6 @@
 if [[ "$(uname)" == "Darwin" ]]; then
   IS_MACOS=true
-else
-  IS_MACOS=false
-fi
 
-if [ $IS_MACOS ]; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
@@ -81,6 +77,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
 if [ $IS_MACOS ]; then
   plugins=(
     git
@@ -88,19 +85,17 @@ if [ $IS_MACOS ]; then
     node
     macos
   )
-else
-  plugins=(
-    git
-    node
-  )
-fi
 
-if [ $IS_MACOS ]; then
   source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
   export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 else
+  plugins=(
+    git
+    node
+  )
+
   source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -136,49 +131,10 @@ fi
 alias nvimconfig="$EDITOR ~/.config/nvim/"
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
-alias bci="brew cask install --force"
-alias bu="brew upgrade && brew upgrade --cask"
 alias httpserver="python3 -m http.server --bind 0.0.0.0"
-alias b64="node /Users/giovannigrandi/Programming/base64_encoding/dist/base64_encoding.js"
-alias addwasm="cargo generate --git https://github.com/rustwasm/wasm-pack-template"
-alias tsconfig.json="cp ~/.base.tsconfig.json ./tsconfig.json"
-alias reddit_dl="node /Users/giovannigrandi/Programming/NodeJS/reddit_dl.js"
-alias firefoxdev="/Applications/Firefox.app/Contents/MacOS/firefox -start-debugger-server"
-alias edgedev="/Applications/Microsoft\ Edge.app/Contents/MacOS/Microsoft\ Edge --remote-debugging-port=9222"
-alias wifi-password="/Users/giovannigrandi/Programming/bash/wifi-password/wifi-password.sh"
-alias daysSince="/Users/giovannigrandi/Desktop/daysSince.js"
-alias enabledeno="cp -R ~/.base.deno/* ."
 alias :q="exit"
-alias vim="nvim"
-alias cwd="echo \$PWD"
-
-# enable thefuck
-# eval $(thefuck --alias)
-
-export PATH="/Users/giovannigrandi/.deno/bin:$PATH"
-
-export PATH="/usr/local/opt/curl/bin:$PATH"
-
-# xcode tools
-export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
-
-export PATH="/usr/local/bin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-export PATH="/Users/giovannigrandi/Programming/Flutter/flutter/bin:$PATH"
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
-export PATH="/usr/local/opt/python@3.10/bin:$PATH"
-export PATH="/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin:$PATH"
-export PATH="/Users/giovannigrandi/Library/Python/3.8/bin:$PATH"
-export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
-
-
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache/"
 
 source $HOME/.cargo/env
-
-# John the ripper
-# export PATH="/Users/giovannigrandi/Programming/picoCTF/john/run:$PATH"
 
 # if in a node package enable binaries
 if test -d "node_modules/.bin/"; then
@@ -186,37 +142,75 @@ if test -d "node_modules/.bin/"; then
   export PATH="$PWD/node_modules/.bin:$PATH"
 fi
 
-export LDFLAGS="-L/usr/local/opt/ruby/lib"
-export CPPFLAGS="-I/usr/local/opt/ruby/include"
-export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
-
-# NVM - node version management
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# for vscode
-[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
-[[ "$TERM_PROGRAM" == "vscode" ]] && . /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/out/vs/workbench/contrib/terminal/browser/media/shellIntegration-rc.zsh
+if [ $IS_MACOS ]; then
+  alias tsconfig.json="cp ~/.base.tsconfig.json ./tsconfig.json"
+  alias firefoxdev="/Applications/Firefox.app/Contents/MacOS/firefox -start-debugger-server"
+  alias edgedev="/Applications/Microsoft\ Edge.app/Contents/MacOS/Microsoft\ Edge --remote-debugging-port=9222"
+  alias wifi-password="/Users/giovannigrandi/Programming/bash/wifi-password/wifi-password.sh"
+  alias daysSince="/Users/giovannigrandi/Desktop/daysSince.js"
+  alias enabledeno="cp -R ~/.base.deno/* ."
 
-# bun completions
-[ -s "/Users/giovannigrandi/.bun/_bun" ] && source "/Users/giovannigrandi/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+  export PATH="/Users/giovannigrandi/.deno/bin:$PATH"
+
+  export PATH="/usr/local/opt/curl/bin:$PATH"
+
+  # xcode tools
+  export PATH="/Applications/Xcode.app/Contents/Developer/usr/bin:$PATH"
+
+  export PATH="/usr/local/bin:$PATH"
+  export PATH="/usr/local/opt/ruby/bin:$PATH"
+  export PATH="/Users/giovannigrandi/Programming/Flutter/flutter/bin:$PATH"
+  export PATH="/usr/local/opt/sqlite/bin:$PATH"
+  export PATH="/usr/local/opt/python@3.10/bin:$PATH"
+  export PATH="/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin:$PATH"
+  export PATH="/Users/giovannigrandi/Library/Python/3.8/bin:$PATH"
+  export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
+
+  export LDFLAGS="-L/usr/local/opt/ruby/lib"
+  export CPPFLAGS="-I/usr/local/opt/ruby/include"
+  export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+
+  # NVM - node version management
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+  # for vscode
+  [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+  [[ "$TERM_PROGRAM" == "vscode" ]] && . /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/out/vs/workbench/contrib/terminal/browser/media/shellIntegration-rc.zsh
+
+  # bun completions
+  [ -s "/Users/giovannigrandi/.bun/_bun" ] && source "/Users/giovannigrandi/.bun/_bun"
+
+  # bun
+  export BUN_INSTALL="$HOME/.bun"
+  export PATH="$BUN_INSTALL/bin:$PATH"
+
+  export PNPM_HOME="/Users/giovannigrandi/Library/pnpm"
+
+  export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+  # opam configuration
+  [[ ! -r /Users/giovannigrandi/.opam/opam-init/init.zsh ]] || source /Users/giovannigrandi/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+else
+  source /usr/share/nvm/init-nvm.sh
+
+  export PNPM_HOME="/home/giovannigrandi/.local/share/pnpm"
+
+  export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
+  export MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man:$MANPATH"
+  export INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info:$INFOPATH"
+fi
 
 
 # pnpm
-export PNPM_HOME="/Users/giovannigrandi/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-
-# opam configuration
-[[ ! -r /Users/giovannigrandi/.opam/opam-init/init.zsh ]] || source /Users/giovannigrandi/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 
