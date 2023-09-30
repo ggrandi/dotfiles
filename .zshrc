@@ -1,4 +1,6 @@
-if [[ `uname -s` == "Darwin" ]]; then
+IS_MACOS=`[ \`uname -s\` == "Darwin" ]`
+
+if [ $IS_MACOS ]; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 
@@ -75,7 +77,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-if [[ `uname -s` == "Darwin" ]]; then
+if [ $IS_MACOS ]; then
   plugins=(
     git
     brew
@@ -89,18 +91,20 @@ else
   )
 fi
 
-source $ZSH/oh-my-zsh.sh
-
-
-if [[ `uname -s` == "Darwin" ]]; then
+if [ $IS_MACOS ]; then
   source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+  export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
 else
   source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+  export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/share/zsh/plugins/zsh-syntax-highlighting/highlighters/
 fi
 
-export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
+source $ZSH/oh-my-zsh.sh
+
 
 # User configuration
 
@@ -162,6 +166,10 @@ export PATH="/usr/local/opt/python@3.10/bin:$PATH"
 export PATH="/usr/local/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/bin:$PATH"
 export PATH="/Users/giovannigrandi/Library/Python/3.8/bin:$PATH"
 export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
+
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache/"
 
 source $HOME/.cargo/env
 
