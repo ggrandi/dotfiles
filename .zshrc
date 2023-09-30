@@ -1,4 +1,8 @@
-IS_MACOS=`[ \`uname -s\` == "Darwin" ]`
+if [[ "$(uname)" == "Darwin" ]]; then
+  IS_MACOS=true
+else
+  IS_MACOS=false
+fi
 
 if [ $IS_MACOS ]; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
