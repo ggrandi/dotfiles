@@ -192,8 +192,6 @@ if [ $IS_MACOS ]; then
 
   export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
-  # opam configuration
-  [[ ! -r /Users/giovannigrandi/.opam/opam-init/init.zsh ]] || source /Users/giovannigrandi/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 else
   source /usr/share/nvm/init-nvm.sh
@@ -205,6 +203,8 @@ else
   export INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info:$INFOPATH"
 fi
 
+# opam configuration
+[[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
 
 # pnpm
 case ":$PATH:" in
