@@ -26,3 +26,4 @@ map("v", "∆", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "˚", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 map({ "n", "i" }, "Ô", "<cmd>t .<cr>", { desc = "Copy down" })
+map({ "n", "i" }, "<M-J>", "<cmd>t .<cr>", { desc = "Copy down" })
