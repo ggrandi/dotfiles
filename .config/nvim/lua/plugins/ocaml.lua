@@ -11,8 +11,7 @@ return {
 
 	{
 		"neovim/nvim-lspconfig",
-
-		dependencies = { "ocaml/ocaml-lsp" },
+		-- dependencies = { "ocaml/ocaml-lsp" },
 		---@class PluginLspOpts
 		opts = {
 			---@type lspconfig.options
