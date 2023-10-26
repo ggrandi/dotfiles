@@ -20,10 +20,15 @@ map({ "i", "v", "n", "s" }, "<M-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
 map({ "n", "v" }, "<leader>qq", ":wqa<cr>", { desc = "Save and quit neovim" })
 
-map({ "n", "i" }, "∆", "<cmd>m .+1<cr>", { desc = "Move down" })
-map({ "n", "i" }, "˚", "<cmd>m .-2<cr>", { desc = "Move up" })
-map("v", "∆", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-map("v", "˚", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+map({ "n", "i" }, "∆", "<cmd>m .+1<cr>", { desc = "Move line down" })
+map({ "n", "i" }, "˚", "<cmd>m .-2<cr>", { desc = "Move line up" })
 
-map({ "n", "i" }, "Ô", "<cmd>t .<cr>", { desc = "Copy down" })
-map({ "n", "i" }, "<M-J>", "<cmd>t .<cr>", { desc = "Copy down" })
+map("v", "∆", ":m '>+1<cr>gv=gv", { desc = "Move line down" })
+map("v", "˚", ":m '<-2<cr>gv=gv", { desc = "Move line up" })
+
+map({ "n", "i" }, "Ô", "<cmd>t .<cr>", { desc = "Copy line down" })
+map({ "n", "i" }, "<M-J>", "<cmd>t .<cr>", { desc = "Copy line down" })
+map({ "n", "i" }, "<M-K>", "<cmd>t .-1<cr>", { desc = "Copy line down" })
+
+-- map("v", "<M-J>", "<cmd>t .<cr>", { desc = "Copy line down" })
+-- map("v", "<M-K>", "<cmd>t .-1<cr>", { desc = "Copy line down" })

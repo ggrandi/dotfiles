@@ -153,8 +153,6 @@ if [ $IS_MACOS ]; then
   alias enabledeno="cp -R ~/.base.deno/* ."
 
 
-  export PATH="/Users/giovannigrandi/.deno/bin:$PATH"
-
   export PATH="/usr/local/opt/curl/bin:$PATH"
 
   # xcode tools
@@ -181,13 +179,6 @@ if [ $IS_MACOS ]; then
   [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
   [[ "$TERM_PROGRAM" == "vscode" ]] && . /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/out/vs/workbench/contrib/terminal/browser/media/shellIntegration-rc.zsh
 
-  # bun completions
-  [ -s "/Users/giovannigrandi/.bun/_bun" ] && source "/Users/giovannigrandi/.bun/_bun"
-
-  # bun
-  export BUN_INSTALL="$HOME/.bun"
-  export PATH="$BUN_INSTALL/bin:$PATH"
-
   export PNPM_HOME="/Users/giovannigrandi/Library/pnpm"
 
   export PATH="/usr/local/opt/openjdk/bin:$PATH"
@@ -201,6 +192,10 @@ else
   export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
   export MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man:$MANPATH"
   export INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info:$INFOPATH"
+
+  export PATH="$HOME/.elan/bin:$PATH"
+
+  export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 fi
 
 # opam configuration
@@ -214,6 +209,16 @@ esac
 # pnpm end
 
 
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# deno
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
