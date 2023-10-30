@@ -5,7 +5,6 @@ return {
 	dependencies = {
 		"neovim/nvim-lspconfig",
 		"nvim-lua/plenary.nvim",
-		"hrsh7th/nvim-cmp",
 	},
 
 	opts = {
@@ -14,4 +13,15 @@ return {
 		},
 		mappings = true,
 	},
+
+	-- 	"hrsh7th/nvim-cmp",
+	-- 	dependencies = {},
+	-- 	---@param opts cmp.ConfigSchema
+	-- 	opts = function(_, opts)
+	-- 		local cmp = require("cmp")
+	-- 		opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
+	-- 			{ name = "nvim_lsp" },
+	-- 		}))
+	-- 	end,
+	-- },
 }
