@@ -8,6 +8,8 @@
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
+set clipboard='ideaput'
+set ideajoin
 
 " Do incremental searching.
 set incsearch
@@ -21,6 +23,10 @@ map Q gq
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
+
+"" idea vim which key
+set which-key
+set notimeout
 
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
