@@ -1,0 +1,51 @@
+[colors.bright]
+black = "0x676767"
+blue = "0x6871ff"
+cyan = "0x5ffdff"
+green = "0x5ff967"
+magenta = "0xff76ff"
+red = "0xff6d67"
+white = "0xfffefe"
+yellow = "0xfefb67"
+
+[colors.cursor]
+cursor = "0xc7c7c7"
+text = "0xfffefe"
+
+[colors.normal]
+black = "0x000000"
+blue = "0x0225c7"
+cyan = "0x00c5c7"
+green = "0x00c200"
+magenta = "0xc930c7"
+red = "0xc91b00"
+white = "0xc7c7c7"
+yellow = "0xc7c400"
+
+[colors.primary]
+background = "0x1b1b1b"
+foreground = "0xc7c7c7"
+
+[font]
+size = 9
+
+[font.bold]
+family = "FiraCode Nerd Font Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "FiraCode Nerd Font Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "FiraCode Nerd Font Mono"
+style = "Italic"
+
+[font.normal]
+family = "FiraCode Nerd Font Mono"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "Return"
+mods = "Control|Shift"

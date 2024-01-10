@@ -1,14 +1,18 @@
 if [[ "$(uname)" == "Darwin" ]]; then
   IS_MACOS=true
 
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-fi
+  export FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+else 
+  export FPATH="$HOME/.zfunc/:$FPATH"
+fi 
 
 # creates a header using ANSI Shadow font (http://www.patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=`Text to transform`)
 # cat ~/.header.txt
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+export ZSH_COMPDUMP=$ZSH/cache/.zcompudump.$HOST
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -127,12 +131,12 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
 alias nvimconfig="$EDITOR ~/.config/nvim/"
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias httpserver="python3 -m http.server --bind 0.0.0.0"
 alias :q="exit"
+alias ls="exa"
 
 source $HOME/.cargo/env
 
