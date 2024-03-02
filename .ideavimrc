@@ -3,19 +3,23 @@
 " You can find a list of commands here: https://jb.gg/h38q75
 " Find more examples here: https://jb.gg/share-ideavimrc
 
+" set the leader key to space
+let mapleader = ' '
 
-"" -- Suggested options --
-" Show a few lines of context around the cursor. Note that this makes the
-" text scroll if you mouse-click near the start or end of the window.
+
 set scrolloff=5
-set clipboard='ideaput'
+set ideaput
 set ideajoin
+set idearefactormode=visual
+
+" case insensitive searching
+set ignorecase
+set smartcase
+
+set clipboard+=unnamed
 
 " Do incremental searching.
 set incsearch
-
-" Don't use Ex mode, use Q for formatting.
-map Q gq
 
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
 
@@ -24,9 +28,59 @@ Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
 
+" vim surround
+Plug 'tpope/vim-surround'
+
 "" idea vim which key
 set which-key
 set notimeout
+let g:WhichKey_ShowVimActions = 'true'
+
+let g:WhichKeyDesc_gy = 'gy Go To T[y]pe Declaration'
+nmap gy <Action>(GotoTypeDeclaration)
+
+let g:WhichKeyDesc_code = '<leader>c +Code'
+
+let g:WhichKeyDesc_code_rename = '<leader>cr [C]ode [R]ename'
+nmap <leader>cr <Action>(RenameElement)
+
+let g:WhichKeyDesc_code_format = '<leader>cf [C]ode [F]ormat'
+nmap <leader>cf <Action>(ReformatCode)
+
+let g:WhichKeyDesc_code_optimize = '<leader>co [C]ode [O]ptimize'
+nmap <leader>co <Action>(OptimizeImports)
+
+let g:WhichKeyDesc_code_generate = '<leader>cg [C]ode [G]enerate'
+nmap <leader>cg <Action>(Generate)
+
+let g:WhichKeyDesc_search = '<leader><Space> Search Everywhere'
+nmap <leader><Space> <Action>(SearchEverywhere)
+
+let g:WhichKeyDesc_grep = '<leader>/ Grep'
+nmap <leader>/ <Action>(FindInPath)
+
+
+nmap <M-j> <Action>(MoveLineDown)
+nmap <M-k> <Action>(MoveLineUp)
+nmap <M-S-j> <Action>(EditorDuplicate)
+nmap <M-S-k> <cmd>t .-1<cr>
+
+let g:WhichKeyDesc_z = '<leader>z +Useful [Z]tuff'
+
+let g:WhichKeyDesc_zt = '<leader>zt Track Actions'
+nmap <leader>zt <Action>(VimFindActionIdAction)
+
+let g:WhichKeyDesc_zz = '<leader>zz Re[Z]tart'
+nmap <leader>zz <Action>(RestartIde)
+
+
+let g:WhichKeyDesc_b = '<leader>b +[B]uffers'
+
+let g:WhichKeyDesc_bd = '<leader>bd Close active buffer'
+nmap <leader>bd <Action>(CloseEditor)
+
+" map gcc to comment
+
 
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t

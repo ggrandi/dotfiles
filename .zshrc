@@ -118,7 +118,7 @@ export LANG=en_US.UTF-8
 
 # Preferred editor
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nano'
+  export EDITOR='nvim'
 else
   export EDITOR='nvim'
 fi
@@ -200,6 +200,10 @@ else
   export PATH="$HOME/.elan/bin:$PATH"
 
   export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
+
+  # configure zoxide
+  export _ZO_ECHO=1
+  eval "$(zoxide init zsh --cmd cd)"
 fi
 
 # opam configuration
