@@ -70,6 +70,9 @@ let g:WhichKeyDesc_z = '<leader>z +Useful [Z]tuff'
 let g:WhichKeyDesc_zt = '<leader>zt Track Actions'
 nmap <leader>zt <Action>(VimFindActionIdAction)
 
+let g:WhichKeyDesc_zf = '<leader>zf reload all [f]iles'
+nmap <leader>zf <Action>(Synchronize)
+
 let g:WhichKeyDesc_zz = '<leader>zz Re[Z]tart'
 nmap <leader>zz <Action>(RestartIde)
 
@@ -82,6 +85,21 @@ nmap <leader>bd <Action>(CloseEditor)
 " map gcc to comment
 
 
+let g:WhichKeyDesc_g = '<leader>g +[G]it'
+
+let g:WhichKeyDesc_gh = '<leader>gh +[H]unk'
+
+let g:WhichKeyDesc_ghr = '<leader>ghr [G]it [H]unk [R]eset'
+nmap <leader>ghr = <Action>(Vcs.RollbackChangedLines);
+
+
+let g:WhichKeyDesc_j = '<leader>j +[J]ava'
+
+let g:WhichKeyDesc_jo = '<leader>jo [J]ava [O]verride'
+nmap <leader>jo <Action>(OverrideMethods)
+
+let g:WhichKeyDesc_bracketd = '\]d next diagnostic'
+nmap ]d <Action>(GotoNextError)
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action

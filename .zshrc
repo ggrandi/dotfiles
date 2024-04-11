@@ -204,6 +204,9 @@ else
   # configure zoxide
   export _ZO_ECHO=1
   eval "$(zoxide init zsh --cmd cd)"
+
+  # enable haskell packages
+  export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 fi
 
 # opam configuration
