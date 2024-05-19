@@ -1,3 +1,4 @@
+echo 0 $(date +%T.%N)
 if [[ "$(uname)" == "Darwin" ]]; then
   IS_MACOS=true
 
@@ -6,131 +7,90 @@ else
   export FPATH="$HOME/.zfunc/:$FPATH"
 fi 
 
-# creates a header using ANSI Shadow font (http://www.patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=`Text to transform`)
-# cat ~/.header.txt
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-export ZSH_COMPDUMP=$ZSH/cache/.zcompudump.$HOST
-
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-HIST_STAMPS="dd.mm.yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-
-if [ $IS_MACOS ]; then
-  plugins=(
-    git
-    brew
-    node
-    macos
-  )
-
-  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-  export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/local/share/zsh-syntax-highlighting/highlighters
-else
-  plugins=(
-    git
-    node
-  )
-
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-  export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/share/zsh/plugins/zsh-syntax-highlighting/highlighters/
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
-source $ZSH/oh-my-zsh.sh
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
+
+echo 1 $(date +%T.%N)
+
+zinit light zsh-users/zsh-syntax-highlighting
+echo 1.1 $(date +%T.%N)
+zinit light zsh-users/zsh-completions
+echo 1.2 $(date +%T.%N)
+zinit light zsh-users/zsh-autosuggestions
+echo 1.3 $(date +%T.%N)
+zinit light Aloxaf/fzf-tab
+echo 1.4 $(date +%T.%N)
+
+zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
+
+echo 2 $(date +%T.%N)
 
 
-# User configuration
+# Add in snippets
+# zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::command-not-found
+zinit snippet OMZ::lib/directories.zsh
 
-# export MANPATH="/usr/local/man:$MANPATH"
+echo 3 $(date +%T.%N)
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# Load completions
+autoload -Uz compinit && compinit
 
-# Preferred editor
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-else
-  export EDITOR='nvim'
-fi
+zinit cdreplay -q
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+echo 4 $(date +%T.%N)
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
+# keybindings
+# MODE_CURSOR_VIINS="#ffffff blinking bar"
+# MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
+# MODE_CURSOR_VICMD="#00ff00 block"
+# MODE_CURSOR_SEARCH="#ff00ff steady underline"
+# MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
+# MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
+bindkey -v
+bindkey -M vicmd '^o' history-search-backward
+bindkey -M vicmd '^i' history-search-forward
+
+
+echo 5 $(date +%T.%N)
+
+# History
+HISTSIZE=1000000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' disabled-on any
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+
+echo 6 $(date +%T.%N)
+
+# ---
+export EDITOR=nvim
+
+# aliases
 alias nvimconfig="$EDITOR ~/.config/nvim/"
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
@@ -139,12 +99,6 @@ alias :q="exit"
 alias ls="exa"
 
 source $HOME/.cargo/env
-
-# if in a node package enable binaries
-if test -d "node_modules/.bin/"; then
-  print "enabling node_modules bin"
-  export PATH="$PWD/node_modules/.bin:$PATH"
-fi
 
 export NVM_DIR="$HOME/.nvm"
 
@@ -189,7 +143,22 @@ if [ $IS_MACOS ]; then
 
 
 else
-  source /usr/share/nvm/init-nvm.sh
+  echo 6.1 $(date +%T.%N)
+  lazy_load_nvm() {
+    unset -f node nvm
+    source /usr/share/nvm/init-nvm.sh
+  }
+
+  export node() {
+    lazy_load_nvm
+    node $@
+  }
+
+  export nvm() {
+    lazy_load_nvm
+    node $@
+  }
+  echo 6.2 $(date +%T.%N)
 
   export PNPM_HOME="/home/giovannigrandi/.local/share/pnpm"
 
@@ -201,13 +170,12 @@ else
 
   export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 
-  # configure zoxide
-  export _ZO_ECHO=1
-  eval "$(zoxide init zsh --cmd cd)"
-
   # enable haskell packages
   export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 fi
+
+
+echo 7 $(date +%T.%N)
 
 # opam configuration
 [[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
@@ -231,6 +199,22 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
+echo 7.1 $(date +%T.%N)
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+
+echo 8 $(date +%T.%N)
+
+# ---
+
+# configure zoxide
+export _ZO_ECHO=1
+eval "$(zoxide init zsh --cmd cd)"
+
+eval "$(fzf --zsh)"
+eval "$(starship init zsh)"
+
+echo 9 $(date +%T.%N)
