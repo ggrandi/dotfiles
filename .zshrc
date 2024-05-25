@@ -1,4 +1,6 @@
-echo 0 $(date +%T.%N)
+DBG='0'
+
+[[ $DBG == '1' ]] && echo 0 $(date +%T.%N)
 if [[ "$(uname)" == "Darwin" ]]; then
   IS_MACOS=true
 
@@ -16,39 +18,40 @@ if [ ! -d "$ZINIT_HOME" ]; then
    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
+[[ $DBG == '1' ]] && echo 0.1 $(date +%T.%N)
+
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-echo 1 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 1 $(date +%T.%N)
 
 zinit light zsh-users/zsh-syntax-highlighting
-echo 1.1 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 1.1 $(date +%T.%N)
 zinit light zsh-users/zsh-completions
-echo 1.2 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 1.2 $(date +%T.%N)
 zinit light zsh-users/zsh-autosuggestions
-echo 1.3 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 1.3 $(date +%T.%N)
 zinit light Aloxaf/fzf-tab
-echo 1.4 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 1.4 $(date +%T.%N)
 
-zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
+# zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
 
-echo 2 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 2 $(date +%T.%N)
 
 
 # Add in snippets
-# zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
-zinit snippet OMZ::lib/directories.zsh
+zinit snippet OMZL::directories.zsh
 
-echo 3 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 3 $(date +%T.%N)
 
 # Load completions
 autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
-echo 4 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 4 $(date +%T.%N)
 
 # keybindings
 # MODE_CURSOR_VIINS="#ffffff blinking bar"
@@ -58,11 +61,13 @@ echo 4 $(date +%T.%N)
 # MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
 # MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 bindkey -v
-bindkey -M vicmd '^o' history-search-backward
-bindkey -M vicmd '^i' history-search-forward
+bindkey -M vicmd '^p' history-substring-search-up
+bindkey -M vicmd '^n' history-substring-search-down
+bindkey -M viins '^p' history-substring-search-up
+bindkey -M viins '^n' history-substring-search-down
 
 
-echo 5 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 5 $(date +%T.%N)
 
 # History
 HISTSIZE=1000000
@@ -77,6 +82,11 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+function stop_history() {
+  unsetopt appendhistory
+  unsetopt sharehistory
+}
+
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -85,7 +95,7 @@ zstyle ':fzf-tab:complete:cd:*' disabled-on any
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 
-echo 6 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 6 $(date +%T.%N)
 
 # ---
 export EDITOR=nvim
@@ -143,7 +153,7 @@ if [ $IS_MACOS ]; then
 
 
 else
-  echo 6.1 $(date +%T.%N)
+  [[ $DBG == '1' ]] && echo 6.1 $(date +%T.%N)
   lazy_load_nvm() {
     unset -f node nvm
     source /usr/share/nvm/init-nvm.sh
@@ -158,7 +168,7 @@ else
     lazy_load_nvm
     node $@
   }
-  echo 6.2 $(date +%T.%N)
+  [[ $DBG == '1' ]] && echo 6.2 $(date +%T.%N)
 
   export PNPM_HOME="/home/giovannigrandi/.local/share/pnpm"
 
@@ -175,7 +185,7 @@ else
 fi
 
 
-echo 7 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 7 $(date +%T.%N)
 
 # opam configuration
 [[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
@@ -199,14 +209,14 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-echo 7.1 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 7.1 $(date +%T.%N)
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 
-echo 8 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 8 $(date +%T.%N)
 
 # ---
 
@@ -217,4 +227,4 @@ eval "$(zoxide init zsh --cmd cd)"
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 
-echo 9 $(date +%T.%N)
+[[ $DBG == '1' ]] && echo 9 $(date +%T.%N)
