@@ -16,7 +16,8 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- save file
-map({ "i", "v", "n", "s" }, "<M-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+-- map({ "i", "v", "n", "s" }, "<M-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+-- vim.keymap.del({ "i", "v", "n", "s" }, "<C-s>")
 
 map({ "n", "v" }, "<leader>qq", ":wqa<cr>", { desc = "Save and quit neovim" })
 

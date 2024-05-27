@@ -42,6 +42,7 @@ zinit light Aloxaf/fzf-tab
 # Add in snippets
 zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
+zinit snippet OMZP::archlinux
 zinit snippet OMZL::directories.zsh
 
 [[ $DBG == '1' ]] && echo 3 $(date +%T.%N)
@@ -54,17 +55,19 @@ zinit cdreplay -q
 [[ $DBG == '1' ]] && echo 4 $(date +%T.%N)
 
 # keybindings
-# MODE_CURSOR_VIINS="#ffffff blinking bar"
-# MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
-# MODE_CURSOR_VICMD="#00ff00 block"
-# MODE_CURSOR_SEARCH="#ff00ff steady underline"
-# MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
-# MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
+autoload -U up-line-or-beginning-search
+zle -N up-line-or-beginning-search
+
+autoload -U down-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
 bindkey -v
-bindkey -M vicmd '^p' history-substring-search-up
-bindkey -M vicmd '^n' history-substring-search-down
-bindkey -M viins '^p' history-substring-search-up
-bindkey -M viins '^n' history-substring-search-down
+bindkey -M vicmd '^p' up-line-or-beginning-search
+bindkey -M vicmd '^n' down-line-or-beginning-search
+bindkey -M viins '^p' up-line-or-beginning-search
+bindkey -M viins '^n' down-line-or-beginning-search
+bindkey '^r' history-incremental-search-backward
+# bindkey ' ' magic-space
 
 
 [[ $DBG == '1' ]] && echo 5 $(date +%T.%N)
@@ -183,6 +186,9 @@ else
   # enable haskell packages
   export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 fi
+
+
+export PATH="$HOME/.local/bin/:$PATH"
 
 
 [[ $DBG == '1' ]] && echo 7 $(date +%T.%N)
