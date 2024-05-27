@@ -1,6 +1,6 @@
-DBG='0'
+# DBG='0'
 
-[[ $DBG == '1' ]] && echo 0 $(date +%T.%N)
+# [[ $DBG == '1' ]] && echo "0   $(date +%T.%N)"
 if [[ "$(uname)" == "Darwin" ]]; then
   IS_MACOS=true
 
@@ -18,25 +18,26 @@ if [ ! -d "$ZINIT_HOME" ]; then
    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
-[[ $DBG == '1' ]] && echo 0.1 $(date +%T.%N)
+# [[ $DBG == '1' ]] && echo "0.1 $(date +%T.%N)"
 
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-[[ $DBG == '1' ]] && echo 1 $(date +%T.%N)
+# [[ $DBG == '1' ]] && echo "1   $(date +%T.%N)"
 
-zinit light zsh-users/zsh-syntax-highlighting
-[[ $DBG == '1' ]] && echo 1.1 $(date +%T.%N)
-zinit light zsh-users/zsh-completions
-[[ $DBG == '1' ]] && echo 1.2 $(date +%T.%N)
-zinit light zsh-users/zsh-autosuggestions
-[[ $DBG == '1' ]] && echo 1.3 $(date +%T.%N)
-zinit light Aloxaf/fzf-tab
-[[ $DBG == '1' ]] && echo 1.4 $(date +%T.%N)
+# Load completions
+zinit wait lucid for \
+ atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zsh-users/zsh-syntax-highlighting \
+ blockf \
+    zsh-users/zsh-completions \
+  atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+    Aloxaf/fzf-tab
 
 # zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
 
-[[ $DBG == '1' ]] && echo 2 $(date +%T.%N)
+# [[ $DBG == '1' ]] && echo "2   $(date +%T.%N)"
 
 
 # Add in snippets
@@ -45,14 +46,10 @@ zinit snippet OMZP::command-not-found
 zinit snippet OMZP::archlinux
 zinit snippet OMZL::directories.zsh
 
-[[ $DBG == '1' ]] && echo 3 $(date +%T.%N)
+# [[ $DBG == '1' ]] && echo "3   $(date +%T.%N)"
 
-# Load completions
-autoload -Uz compinit && compinit
 
-zinit cdreplay -q
-
-[[ $DBG == '1' ]] && echo 4 $(date +%T.%N)
+# [[ $DBG == '1' ]] && echo "4   $(date +%T.%N)"
 
 # keybindings
 autoload -U up-line-or-beginning-search
@@ -70,7 +67,7 @@ bindkey '^r' history-incremental-search-backward
 # bindkey ' ' magic-space
 
 
-[[ $DBG == '1' ]] && echo 5 $(date +%T.%N)
+# [[ $DBG == '1' ]] && echo "5   $(date +%T.%N)"
 
 # History
 HISTSIZE=1000000
@@ -98,7 +95,7 @@ zstyle ':fzf-tab:complete:cd:*' disabled-on any
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 
-[[ $DBG == '1' ]] && echo 6 $(date +%T.%N)
+# [[ $DBG == '1' ]] && echo "6   $(date +%T.%N)"
 
 # ---
 export EDITOR=nvim
@@ -156,7 +153,7 @@ if [ $IS_MACOS ]; then
 
 
 else
-  [[ $DBG == '1' ]] && echo 6.1 $(date +%T.%N)
+  # [[ $DBG == '1' ]] && echo "6.1 $(date +%T.%N)"
   lazy_load_nvm() {
     unset -f node nvm
     source /usr/share/nvm/init-nvm.sh
@@ -171,14 +168,14 @@ else
     lazy_load_nvm
     node $@
   }
-  [[ $DBG == '1' ]] && echo 6.2 $(date +%T.%N)
+  # [[ $DBG == '1' ]] && echo "6.2 $(date +%T.%N)"
 
   export PNPM_HOME="/home/giovannigrandi/.local/share/pnpm"
 
-  export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
   export MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man:$MANPATH"
   export INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info:$INFOPATH"
 
+  export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
   export PATH="$HOME/.elan/bin:$PATH"
 
   export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
@@ -191,10 +188,9 @@ fi
 export PATH="$HOME/.local/bin/:$PATH"
 
 
-[[ $DBG == '1' ]] && echo 7 $(date +%T.%N)
-
 # opam configuration
-[[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
+# are linked in .zfunc by `ln -s  ~/.opam/opam-init/complete.zsh ~/.zfunc/_opam` to load with the rest of the completions
+source $HOME/.opam/opam-init/variables.sh > /dev/null 2> /dev/null
 
 # pnpm
 case ":$PATH:" in
@@ -205,7 +201,7 @@ esac
 
 
 # bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+# are linked in .zfunc by `ln -s  ~/.bun/_bun ~/.zfunc/_bun` to load with the rest of the completions
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -215,22 +211,19 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-[[ $DBG == '1' ]] && echo 7.1 $(date +%T.%N)
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-
-[[ $DBG == '1' ]] && echo 8 $(date +%T.%N)
+# [[ $DBG == '1' ]] && echo "8   $(date +%T.%N)"
 
 # ---
 
 # configure zoxide
+# [[ $DBG == '1' ]] && echo "8.1 $(date +%T.%N)"
 export _ZO_ECHO=1
 eval "$(zoxide init zsh --cmd cd)"
 
+# [[ $DBG == '1' ]] && echo "8.2 $(date +%T.%N)"
 eval "$(fzf --zsh)"
+
+# [[ $DBG == '1' ]] && echo "8.3 $(date +%T.%N)"
 eval "$(starship init zsh)"
 
-[[ $DBG == '1' ]] && echo 9 $(date +%T.%N)
+# [[ $DBG == '1' ]] && echo "9   $(date +%T.%N)"
