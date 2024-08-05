@@ -27,21 +27,19 @@ source "${ZINIT_HOME}/zinit.zsh"
 
 # Load completions
 zinit wait lucid for \
- atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+ atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" light-mode \
     zsh-users/zsh-syntax-highlighting \
- blockf \
+ blockf light-mode \
     zsh-users/zsh-completions \
-  atload"!_zsh_autosuggest_start" \
+  atload"!_zsh_autosuggest_start" light-mode \
     zsh-users/zsh-autosuggestions \
+  light-mode \
     Aloxaf/fzf-tab
-
-# zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
 
 # [[ $DBG == '1' ]] && echo "2   $(date +%T.%N)"
 
 
 # Add in snippets
-zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
 zinit snippet OMZP::archlinux
 zinit snippet OMZL::directories.zsh
@@ -63,6 +61,8 @@ bindkey -M vicmd '^p' up-line-or-beginning-search
 bindkey -M vicmd '^n' down-line-or-beginning-search
 bindkey -M viins '^p' up-line-or-beginning-search
 bindkey -M viins '^n' down-line-or-beginning-search
+bindkey -M viins "^a" beginning-of-line
+bindkey -M viins "^e" end-of-line
 bindkey '^r' history-incremental-search-backward
 # bindkey ' ' magic-space
 
@@ -172,10 +172,10 @@ else
 
   export PNPM_HOME="/home/giovannigrandi/.local/share/pnpm"
 
-  export MANPATH="/usr/local/texlive/2023/texmf-dist/doc/man:$MANPATH"
-  export INFOPATH="/usr/local/texlive/2023/texmf-dist/doc/info:$INFOPATH"
+  export MANPATH="/usr/local/texlive/2024/texmf-dist/doc/man:$MANPATH"
+  export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
+  export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
 
-  export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
   export PATH="$HOME/.elan/bin:$PATH"
 
   export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"

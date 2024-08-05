@@ -1,3 +1,7 @@
+if true then
+	return {}
+end
+
 return {
 	{
 		"mattn/emmet-vim",
@@ -10,7 +14,7 @@ return {
 		"folke/which-key.nvim",
 		opts = {
 			defaults = {
-				["<leader>y"] = "+ emmet",
+				{ "<leader>y", desc = "+ emmet" },
 			},
 		},
 	},

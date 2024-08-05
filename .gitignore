@@ -14,4 +14,7 @@
 !.config/nvim/
 !.config/nvim/**
 
+!.config/river/
+!.config/river/**
+
 .DS_Store
