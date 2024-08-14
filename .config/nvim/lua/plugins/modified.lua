@@ -19,6 +19,20 @@ return {
 			top_down = false,
 		},
 	},
+	{
+		"nvim-lspconfig",
+		opts = {
+			inlay_hints = { enabled = false },
+		},
+	},
+	{
+		"folke/which-key.nvim",
+		---@module "which-key"
+		---@type wk.Opts
+		opts = {
+			sort = { "local", "order", "alphanum", "mod" },
+		},
+	},
 	-- {
 	-- 	"nvim-telescope/telescope.nvim",
 	-- 	keys = {

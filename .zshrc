@@ -182,6 +182,8 @@ else
 
   # enable haskell packages
   export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+
+  export PATH="$HOME/.nix-profile/bin:$PATH"
 fi
 
 

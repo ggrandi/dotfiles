@@ -68,8 +68,8 @@ riverctl map normal Super+Shift Comma send-to-output previous
 riverctl map normal Super Tab zoom
 
 # Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
-# riverctl map normal Super+Alt I send-layout-cmd rivertile "main-ratio -0.05"
-# riverctl map normal Super+Alt O send-layout-cmd rivertile "main-ratio +0.05"
+riverctl map normal Super+Alt I send-layout-cmd rivertile "main-ratio -0.05"
+riverctl map normal Super+Alt O send-layout-cmd rivertile "main-ratio +0.05"
 
 # # Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
 # riverctl map normal Super+Shift H send-layout-cmd rivertile "main-count +1"
@@ -181,7 +181,7 @@ riverctl background-color 0x002b36
 riverctl border-color-focused 0x93a1a1
 riverctl border-color-unfocused 0x586e75
 
-# Required to display borders on all windows
+# Required to display borders on allnormal map-switch lid spawn windows
 riverctl rule-add ssd
 
 # Set keyboard repeat rate
@@ -199,7 +199,7 @@ riverctl rule-add -app-id 'it.mijorus.smile' tags $all_tags
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
-riverctl default-layout wideriver
+riverctl default-layout rivertile
 
 # set the border-width to 1
 riverctl border-width 1
@@ -218,26 +218,34 @@ gsettings set org.gnome.desktop.default-applications.terminal exec alacritty.des
 
 waybar &
 
-# start layout manager
-wideriver \
-  --layout left \
-  --layout-alt monocle \
-  --stack dwindle \
-  --count-master 1 \
-  --ratio-master 0.50 \
-  --count-wide-left 0 \
-  --ratio-wide 0.35 \
-  --no-smart-gaps \
-  --inner-gaps 0 \
-  --outer-gaps 0 \
-  --border-width 2 \
-  --border-width-monocle 0 \
-  --border-width-smart-gaps 0 \
-  --border-color-focused "0x93a1a1" \
-  --border-color-focused-monocle "0x586e75" \
-  --border-color-unfocused "0x586e75" \
-  --log-threshold info \
-  >"/tmp/wideriver.${XDG_VTNR}.${USER}.log" 2>&1 &
+rivertile -view-padding 3 -outer-padding 3 &
+# # start layout manager
+# wideriver \
+#   --layout left \
+#   --layout-alt monocle \
+#   --stack dwindle \
+#   --count-master 1 \
+#   --ratio-master 0.50 \
+#   --count-wide-left 0 \
+#   --ratio-wide 0.35 \
+#   --no-smart-gaps \
+#   --inner-gaps 0 \
+#   --outer-gaps 0 \
+#   --border-width 2 \
+#   --border-width-monocle 0 \
+#   --border-width-smart-gaps 0 \
+#   --border-color-focused "0x93a1a1" \
+#   --border-color-focused-monocle "0x586e75" \
+#   --border-color-unfocused "0x586e75" \
+#   --log-threshold info \
+#   >"/tmp/wideriver.${XDG_VTNR}.${USER}.log" 2>&1 &
+#
 
-xss-lock --transfer-sleep-lock -- waylock &
+sleep_time=$((200))
+
+swayidle -w \
+  before-sleep "waylock -fork-on-lock" \
+  timeout $sleep_time "waylock -fork-on-lock" \
+  timeout $((2 * sleep_time)) "wlopm --off '*'" resume "wlopm --on '*'" &
+
 nm-applet --indicator &
