@@ -25,7 +25,7 @@ riverctl keyboard-layout -variant "altgr-intl" -options "caps:escape_shifted_cap
 riverctl map normal Super Return spawn alacritty
 
 # Super+Space to launch programs
-riverctl map normal Super Space spawn 'wofi --show drun'
+riverctl map normal Super Space spawn 'fuzzel'
 
 # Super+Shift+Space to pick emojis
 riverctl map normal Super+Control Space spawn 'smile'
@@ -135,6 +135,13 @@ riverctl map normal Super F toggle-fullscreen
 # riverctl map normal Super Down send-layout-cmd rivertile "main-location bottom"
 # riverctl map normal Super Left send-layout-cmd rivertile "main-location left"
 
+# close latest notification
+riverctl map normal Super Escape spawn 'swaync-client --close-latest'
+# toggle notification center
+riverctl map normal Super N spawn 'swaync-client -t -sw'
+# toggle dnd
+riverctl map normal Super+Shift N spawn 'swaync-client -d'
+
 # Declare a passthrough mode. This mode has only a single mapping to return to
 # normal mode. This makes it useful for testing a nested wayland compositor
 riverctl declare-mode passthrough
@@ -144,8 +151,6 @@ riverctl map normal Super F11 enter-mode passthrough
 
 # Super+F11 to return to normal mode
 riverctl map passthrough Super F11 enter-mode normal
-
-riverctl map normal Super Escape spawn 'dunstctl close-all'
 
 # Various media key mapping examples for both normal and locked mode which do
 # not have a modifier
@@ -177,9 +182,9 @@ for mode in normal locked; do
 done
 
 # Set background and border color
-riverctl background-color 0x002b36
-riverctl border-color-focused 0x93a1a1
-riverctl border-color-unfocused 0x586e75
+riverctl background-color 0x24273a
+riverctl border-color-focused 0xb7bdf8
+riverctl border-color-unfocused 0x6e738d
 
 # Required to display borders on allnormal map-switch lid spawn windows
 riverctl rule-add ssd
@@ -208,7 +213,6 @@ riverctl border-width 1
 riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
 riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
 riverctl spawn "systemctl --user restart xdg-desktop-portal.service"
-riverctl spawn "systemctl --user restart dunst.service"
 
 # set dark theme for gtk apps
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
@@ -241,11 +245,15 @@ rivertile -view-padding 3 -outer-padding 3 &
 #   >"/tmp/wideriver.${XDG_VTNR}.${USER}.log" 2>&1 &
 #
 
-sleep_time=$((200))
+WAYLOCK="waylock -init-color 0x24273a -input-color 0x6c7086 -fail-color 0xd20f39 -fork-on-lock"
 
 swayidle -w \
-  before-sleep "waylock -fork-on-lock" \
-  timeout $sleep_time "waylock -fork-on-lock" \
-  timeout $((2 * sleep_time)) "wlopm --off '*'" resume "wlopm --on '*'" &
+  before-sleep "$WAYLOCK" \
+  timeout 500 "$WAYLOCK" \
+  timeout 530 "wlopm --off '*'" resume "wlopm --on '*'" &
 
 nm-applet --indicator &
+
+swaync &
+
+poweralertd &

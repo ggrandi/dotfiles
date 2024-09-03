@@ -1,6 +1,7 @@
 local Util = require("lazyvim.util")
 
 return {
+	{ "catppuccin/nvim", name = "catppuccin", opts = { flavour = "macchiato" } },
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		opts = {
