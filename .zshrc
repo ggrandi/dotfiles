@@ -229,3 +229,5 @@ eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 
 # [[ $DBG == '1' ]] && echo "9   $(date +%T.%N)"
+
+export QSYS_ROOTDIR="/home/giovannigrandi/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/23.1/quartus/sopc_builder/bin"

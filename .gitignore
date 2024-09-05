@@ -11,10 +11,22 @@
 !.config/alacritty/
 !.config/alacritty/**
 
+!.config/fuzzel/
+!.config/fuzzel/**
+
 !.config/nvim/
 !.config/nvim/**
 
+!.config/nvim-new/
+!.config/nvim-new/**
+
 !.config/river/
 !.config/river/**
+
+!.config/swaync/
+!.config/swaync/**
+
+!.config/waybar/
+!.config/waybar/**
 
 .DS_Store

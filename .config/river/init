@@ -135,6 +135,10 @@ riverctl map normal Super F toggle-fullscreen
 # riverctl map normal Super Down send-layout-cmd rivertile "main-location bottom"
 # riverctl map normal Super Left send-layout-cmd rivertile "main-location left"
 
+# use p for previous tags
+riverctl map normal Super P focus-previous-tags
+riverctl map normal Super+Shift P send-to-previous-tags
+
 # close latest notification
 riverctl map normal Super Escape spawn 'swaync-client --close-latest'
 # toggle notification center
@@ -202,10 +206,6 @@ riverctl rule-add -app-id "bar" csd
 riverctl rule-add -app-id 'it.mijorus.smile' float
 riverctl rule-add -app-id 'it.mijorus.smile' tags $all_tags
 
-# Set the default layout generator to be rivertile and start it.
-# River will send the process group of the init executable SIGTERM on exit.
-riverctl default-layout rivertile
-
 # set the border-width to 1
 riverctl border-width 1
 
@@ -222,7 +222,11 @@ gsettings set org.gnome.desktop.default-applications.terminal exec alacritty.des
 
 waybar &
 
+# Set the default layout generator to be rivertile and start it.
+# River will send the process group of the init executable SIGTERM on exit.
+riverctl default-layout rivertile
 rivertile -view-padding 3 -outer-padding 3 &
+
 # # start layout manager
 # wideriver \
 #   --layout left \
@@ -257,3 +261,6 @@ nm-applet --indicator &
 swaync &
 
 poweralertd &
+
+# focus tag 3 on start
+riverctl set-focused-tags 4

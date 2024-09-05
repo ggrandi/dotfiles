@@ -1,0 +1,81 @@
+@import url("macchiato.css");
+
+* {
+  /* `otf-font-awesome` is required to be installed for icons */
+  font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+}
+
+window#waybar {
+  border-bottom: 3px solid @surface0;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  background-color: @base;
+  color: @text;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+button {
+  padding: 0;
+  color: inherit;
+}
+
+tooltip {
+  border: none;
+  background-color: @base;
+}
+
+tooltip label {
+  color: @text;
+}
+
+.modules-right .module {
+  margin: 0 2px;
+  background-color: @surface0;
+  padding: 0 4px;
+  border-radius: 5px;
+}
+
+#tags button:hover {
+  background-color: shade(@surface2, 1.2);
+}
+
+#tags button.occupied {
+  background-color: @surface0;
+}
+
+#tags button.focused {
+  background-color: @surface2;
+}
+
+#tags button.urgent {
+  background-color: @red;
+  color: shade(@text, 0.3);
+}
+
+#tags button:not(.occupied) {}
+
+
+#battery.charging,
+#battery.plugged {
+  background-color: @green;
+  color: #4c4f69;
+}
+
+#battery.critical:not(.charging) {
+  background-color: @surface0;
+  animation: blink 1s linear infinite alternate;
+}
+
+@keyframes blink {
+  to {
+    background-color: @red;
+  }
+}
+
+#custom-notification sup {
+  color: @red;
+}
