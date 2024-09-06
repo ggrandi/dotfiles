@@ -19,7 +19,7 @@ end
 -- map({ "i", "v", "n", "s" }, "<M-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 -- vim.keymap.del({ "i", "v", "n", "s" }, "<C-s>")
 
-map({ "n", "v" }, "<leader>qq", ":wqa<cr>", { desc = "Save and quit neovim" })
+-- map({ "n", "v" }, "<leader>qq", ":wqa<cr>", { desc = "Save and quit neovim" })
 
 map({ "n", "i" }, "∆", "<cmd>m .+1<cr>", { desc = "Move line down" })
 map({ "n", "i" }, "˚", "<cmd>m .-2<cr>", { desc = "Move line up" })
