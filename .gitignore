@@ -26,7 +26,13 @@
 !.config/swaync/
 !.config/swaync/**
 
+!.config/tmux/
+!.config/tmux/**
+
 !.config/waybar/
 !.config/waybar/**
+
+!.config/xdg-desktop-portal/
+!.config/xdg-desktop-portal/**
 
 .DS_Store
