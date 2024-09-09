@@ -1,3 +1,5 @@
+local U = require("utils")
+
 return {
 	{
 		"folke/which-key.nvim",
@@ -16,7 +18,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		version = false, -- last release is way too old and doesn't work on Windows
 		build = ":TSUpdate",
-		event = { "LazyFile", "VeryLazy" },
+		event = vim.list_extend(U.LazyFile, { "VeryLazy" }),
 		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
 		init = function(plugin)
 			-- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
@@ -86,7 +88,7 @@ return {
 		---@param opts TSConfig
 		config = function(_, opts)
 			if type(opts.ensure_installed) == "table" then
-				opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
+				opts.ensure_installed = require("utils").dedup(opts.ensure_installed)
 			end
 			require("nvim-treesitter.configs").setup(opts)
 		end,
@@ -98,8 +100,8 @@ return {
 		enabled = true,
 		config = function()
 			-- If treesitter is already loaded, we need to run config again for textobjects
-			if LazyVim.is_loaded("nvim-treesitter") then
-				local opts = LazyVim.opts("nvim-treesitter")
+			if U.is_loaded("nvim-treesitter") then
+				local opts = U.opts("nvim-treesitter")
 				require("nvim-treesitter.configs").setup({ textobjects = opts.textobjects })
 			end
 
@@ -129,7 +131,7 @@ return {
 	-- Automatically add closing tags for HTML and JSX
 	{
 		"windwp/nvim-ts-autotag",
-		event = "LazyFile",
+		event = require("utils").LazyFile,
 		opts = {},
 	},
 }
