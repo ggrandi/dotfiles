@@ -102,7 +102,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -160,6 +160,15 @@ vim.opt.scrolloff = 10
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+vim.keymap.set({ 'v', 'n' }, 'j', 'gj', { desc = 'move down a line' })
+vim.keymap.set({ 'v', 'n' }, 'k', 'gk', { desc = 'move up a line' })
+
+vim.keymap.set({ 'n', 'i' }, '<M-j>', '<cmd>m .+1<cr>', { desc = 'Move line down' })
+vim.keymap.set({ 'n', 'i' }, '<M-k>', '<cmd>m .-2<cr>', { desc = 'Move line up' })
+
+vim.keymap.set({ 'n', 'i' }, '<M-J>', '<cmd>t .<cr>', { desc = 'Copy line down' })
+vim.keymap.set({ 'n', 'i' }, '<M-K>', '<cmd>t .-1<cr>', { desc = 'Copy line down' })
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -176,10 +185,10 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+vim.keymap.set('n', '<left>', '')
+vim.keymap.set('n', '<right>', '')
+vim.keymap.set('n', '<up>', '')
+vim.keymap.set('n', '<down>', '')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -274,20 +283,26 @@ require('lazy').setup({
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
-    config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup()
-
-      -- Document existing key chains
-      require('which-key').add {
+    opts = {
+      spec = { -- This is the function that runs, AFTER loading
         { '<leader>c', group = '[C]ode' },
         { '<leader>d', group = '[D]ocument' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
-        { '<leader>t', group = '[T]oggle' },
+        { '<leader>u', group = '[U]I' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-      }
-    end,
+        {
+          '<leader>w',
+          group = 'windows',
+          proxy = '<c-w>',
+          expand = function()
+            return require('which-key.extras').expand.win()
+          end,
+        },
+        { 'gx', desc = 'Open with system app' },
+      },
+    },
   },
 
   -- NOTE: Plugins can specify dependencies.
@@ -548,9 +563,9 @@ require('lazy').setup({
           --
           -- This may be unwanted, since they displace some of your code
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-            map('<leader>th', function()
+            map('<leader>uh', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
+            end, '[U]I Toggle Inlay [H]ints')
           end
         end,
       })
@@ -787,53 +802,19 @@ require('lazy').setup({
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    opts = { flavour = 'macchiato' },
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'catppuccin'
-
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
-    config = function()
-      -- Better Around/Inside textobjects
-      --
-      -- Examples:
-      --  - va)  - [V]isually select [A]round [)]paren
-      --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
-      --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
-      require('mini.surround').setup()
-
+    'echasnovski/mini.statusline',
+    opts = { use_icons = vim.g.have_nerd_font },
+    config = function(_, opts)
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
       local statusline = require 'mini.statusline'
       -- set use_icons to true if you have a Nerd Font
-      statusline.setup { use_icons = vim.g.have_nerd_font }
+      statusline.setup(opts)
 
       -- You can configure sections in the statusline by overriding their
       -- default behavior. For example, here we set the section for
@@ -843,8 +824,31 @@ require('lazy').setup({
         return '%2l:%-2v'
       end
 
+      -- ... and there is more!
+      --  Check out: https://github.com/echasnovski/mini.nvim
+    end,
+  },
+  -- Better Around/Inside textobjects
+  --
+  -- Examples:
+  --  - va)  - [V]isually select [A]round [)]paren
+  --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
+  --  - ci'  - [C]hange [I]nside [']quote
+  { 'echasnovski/mini.ai', opts = { n_lines = 500 } },
+  -- Add/delete/replace surroundings (brackets, quotes, etc.)
+  --
+  -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+  -- - sd'   - [S]urround [D]elete [']quotes
+  -- - sr)'  - [S]urround [R]eplace [)] [']
+  { 'echasnovski/mini.surround', opts = {} },
+  {
+    'echasnovski/mini.hipatterns',
+    recommended = true,
+    desc = 'Highlight colors in your code',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
+    opts = function()
       local hi = require 'mini.hipatterns'
-      require('mini.hipatterns').setup {
+      return {
         highlighters = {
           hex_color = hi.gen_highlighter.hex_color { priority = 2000 },
           shorthand = {
@@ -861,9 +865,6 @@ require('lazy').setup({
           },
         },
       }
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -905,20 +906,21 @@ require('lazy').setup({
   --
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  { import = 'kickstart.plugins.debug' },
+  { import = 'kickstart.plugins.indent_line' },
+  { import = 'kickstart.plugins.lint' },
+  { import = 'kickstart.plugins.autopairs' },
+  { import = 'kickstart.plugins.neo-tree' },
+  { import = 'kickstart.plugins.gitsigns' }, -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
+  { import = 'plugins.ui' },
 }, {
+  install = { colorscheme = { 'catppuccin' } },
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
@@ -942,7 +944,7 @@ require('lazy').setup({
       -- be shown in the help menu.
       -- To disable one of the defaults, set it to false.
 
-      ['<localleader>l'] = {
+      ['<leader>l'] = {
         function(plugin)
           require('lazy.util').float_term({ 'lazygit', 'log' }, {
             cwd = plugin.dir,
@@ -951,7 +953,7 @@ require('lazy').setup({
         desc = 'Open lazygit log',
       },
 
-      ['<localleader>t'] = {
+      ['<leader>t'] = {
         function(plugin)
           require('lazy.util').float_term(nil, {
             cwd = plugin.dir,

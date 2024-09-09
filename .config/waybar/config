@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": ["river/tags", "river/mode"],
     "modules-center": ["river/window"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "cpu", "memory", "disk", "temperature", "backlight", "battery", "clock", "custom/notification", "tray"],
+    "modules-right": ["custom/rfkill", "idle_inhibitor", "pulseaudio", "cpu", "memory", "disk", "temperature", "backlight", "battery", "clock", "custom/notification", "tray"],
     "tray": {
       "icon-size": 21,
       "spacing": 10
@@ -118,6 +118,14 @@
         "on-click": "swaync-client -t -sw",
         "on-click-right": "swaync-client -d -sw",
         "escape": true
+    },
+    "custom/rfkill": {
+        "tooltip": false,
+        "format": "{text}",
+        "return-type": "json",
+        "exec-if": "which rfkill",
+        "exec": "rfkill event | awk '{printf \"{\\\"text\\\": \\\"%s\\\", \\\"class\\\": \\\"\\\", \\\"properties\\\": \\\"\\\", \\\"tooltip\\\": \\\"\\\",}\\n\", $10 ? \"󰀝\" : \"\" }'"
+	//"hide-empty-text": true
     }
 }
 
