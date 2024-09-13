@@ -17,6 +17,7 @@ return {
 				mini = {
 					enabled = true,
 				},
+				noice = true,
 				treesitter = true,
 				telescope = {
 					enabled = true,

@@ -90,6 +90,7 @@ return {
 			if type(opts.ensure_installed) == "table" then
 				opts.ensure_installed = require("utils").dedup(opts.ensure_installed)
 			end
+			local a = {}
 			require("nvim-treesitter.configs").setup(opts)
 		end,
 	},
