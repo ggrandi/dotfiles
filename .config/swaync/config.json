@@ -51,6 +51,8 @@
     "inhibitors",
     "title",
     "dnd",
+    "buttons-grid",
+    "mpris",
     "notifications"
   ],
   "widget-config": {
@@ -78,11 +80,20 @@
     "buttons-grid": {
       "actions": [
         {
-          "label": "直",
-          "type": "toggle",
-          "active": true,
-          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio wifi on || nmcli radio wifi off'",
-          "update_command": "sh -c '[[ $(nmcli radio wifi) == \"enabled\" ]] && echo true || echo false'"
+          "label": "󰐥",
+          "command": "systemctl poweroff"
+        },
+        {
+          "label": "󰜉",
+          "command": "systemctl reboot"
+        },
+        {
+          "label": "󰌾",
+          "command": "sh -c '$HOME/.config/river/waylock.sh'"
+        },
+        {
+          "label": "󰈆",
+          "command": "riverctl exit"
         }
       ]
     }

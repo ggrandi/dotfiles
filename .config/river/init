@@ -249,7 +249,7 @@ rivertile -view-padding 3 -outer-padding 3 &
 #   >"/tmp/wideriver.${XDG_VTNR}.${USER}.log" 2>&1 &
 #
 
-WAYLOCK="waylock -init-color 0x24273a -input-color 0x6c7086 -fail-color 0xd20f39 -fork-on-lock"
+WAYLOCK="$HOME/.config/river/waylock.sh"
 
 swayidle -w \
   before-sleep "$WAYLOCK" \

@@ -184,6 +184,8 @@ else
   export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
   export PATH="$HOME/.nix-profile/bin:$PATH"
+
+  export ELECTRON_OZONE_PLATFORM_HINT=auto
 fi
 
 

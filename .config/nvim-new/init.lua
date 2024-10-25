@@ -576,7 +576,6 @@ require("lazy").setup({
 	--  Uncomment any of the lines below to enable them (you will need to restart nvim).
 	{ import = "kickstart.plugins.debug" },
 	{ import = "kickstart.plugins.indent_line" },
-	{ import = "kickstart.plugins.lint" },
 	{ import = "kickstart.plugins.autopairs" },
 	{ import = "kickstart.plugins.neo-tree" },
 	{ import = "kickstart.plugins.gitsigns" }, -- adds gitsigns recommend keymaps
@@ -587,6 +586,8 @@ require("lazy").setup({
 	--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
 	--    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
 	{ import = "plugins" },
+	{ import = "langs" },
+	{ import = "editor" },
 }, {
 	install = { colorscheme = { "catppuccin" } },
 	ui = {
