@@ -106,6 +106,7 @@ alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias httpserver="python3 -m http.server --bind 0.0.0.0"
 alias :q="exit"
+alias gg="lazygit"
 alias ls="exa"
 
 source $HOME/.cargo/env
