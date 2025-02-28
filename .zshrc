@@ -151,8 +151,6 @@ if [ $IS_MACOS ]; then
   export PNPM_HOME="/Users/giovannigrandi/Library/pnpm"
 
   export PATH="/usr/local/opt/openjdk/bin:$PATH"
-
-
 else
   # [[ $DBG == '1' ]] && echo "6.1 $(date +%T.%N)"
   lazy_load_nvm() {
@@ -187,6 +185,8 @@ else
   export PATH="$HOME/.nix-profile/bin:$PATH"
 
   export ELECTRON_OZONE_PLATFORM_HINT=auto
+
+  export CXXFLAGS="${CXXFLAGS} -fdiagnostics-color=always"
 fi
 
 

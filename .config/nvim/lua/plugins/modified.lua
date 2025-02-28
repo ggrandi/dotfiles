@@ -1,9 +1,12 @@
-local Util = require("lazyvim.util")
-
 return {
-	{ "catppuccin/nvim", name = "catppuccin", opts = { flavour = "macchiato" } },
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		opts = { flavour = "macchiato" },
+	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
+		optional = true,
 		opts = {
 			window = {
 				position = "right",
@@ -15,32 +18,35 @@ return {
 		},
 	},
 	{
-		"rcarriga/nvim-notify",
+		"folke/snacks.nvim",
+		optional = true,
+		---@type snacks.Config
 		opts = {
-			top_down = false,
+			notifier = {
+				top_down = false,
+			},
+			-- picker = {
+			-- 	layout = { layout = { position = "right" } },
+			-- },
+			-- explorer = {
+			-- 	replace_netrw = true,
+			-- },
 		},
 	},
 	{
 		"nvim-lspconfig",
+		optional = true,
 		opts = {
 			inlay_hints = { enabled = false },
 		},
 	},
 	{
 		"folke/which-key.nvim",
+		optional = true,
 		---@module "which-key"
 		---@type wk.Opts
 		opts = {
 			sort = { "local", "order", "alphanum", "mod" },
 		},
 	},
-	-- {
-	-- 	"nvim-telescope/telescope.nvim",
-	-- 	keys = {
-	-- 		{ "<leader>fF", Util.pick.telescope("files"), desc = "Find Files (root dir)" },
-	-- 		{ "<leader>ff", Util.pick.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-	-- 		{ "<leader>sG", Util.pick.telescope("live_grep"), desc = "Grep (root dir)" },
-	-- 		{ "<leader>sg", Util.pick.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-	-- 	},
-	-- },
 }

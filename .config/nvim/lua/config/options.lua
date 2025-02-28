@@ -3,3 +3,6 @@
 -- Add any additional options here
 
 vim.opt.expandtab = true
+
+-- disable animations by default
+vim.g.snacks_animate = false

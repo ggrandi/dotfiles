@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": ["river/tags", "river/mode"],
     "modules-center": ["river/window"],
-    "modules-right": ["custom/rfkill", "idle_inhibitor", "pulseaudio", "cpu", "memory", "disk", "temperature", "backlight", "battery", "clock", "custom/notification", "tray"],
+    "modules-right": ["custom/rfkill", "idle_inhibitor", "pulseaudio", "cpu", "memory", "disk", "temperature", "backlight", "battery", "clock", "tray"],
     "tray": {
       "icon-size": 21,
       "spacing": 10
@@ -99,26 +99,26 @@
         },
         "on-click": "pavucontrol"
     },
-    "custom/notification": {
-        "tooltip": false,
-        "format": "{icon}",
-        "format-icons": {
-            "notification": "<span foreground=\"#ed8796\"><sup></sup></span>",
-            "none": "",
-            "dnd-notification": "<span foreground=\"#ed8796\"><sup></sup></span>",
-            "dnd-none": "",
-            "inhibited-notification": "<span foreground=\"#ed8796\"><sup></sup></span>",
-            "inhibited-none": "",
-            "dnd-inhibited-notification": "<span foreground=\"#ed8796\"><sup></sup></span>",
-            "dnd-inhibited-none": ""
-        },
-        "return-type": "json",
-        "exec-if": "which swaync-client",
-        "exec": "swaync-client -swb",
-        "on-click": "swaync-client -t -sw",
-        "on-click-right": "swaync-client -d -sw",
-        "escape": true
-    },
+    // "custom/notification": {
+    //     "tooltip": false,
+    //     "format": "{icon}",
+    //     "format-icons": {
+    //         "notification": "<span foreground=\"#ed8796\"><sup></sup></span>",
+    //         "none": "",
+    //         "dnd-notification": "<span foreground=\"#ed8796\"><sup></sup></span>",
+    //         "dnd-none": "",
+    //         "inhibited-notification": "<span foreground=\"#ed8796\"><sup></sup></span>",
+    //         "inhibited-none": "",
+    //         "dnd-inhibited-notification": "<span foreground=\"#ed8796\"><sup></sup></span>",
+    //         "dnd-inhibited-none": ""
+    //     },
+    //     "return-type": "json",
+    //     "exec-if": "which swaync-client",
+    //     "exec": "swaync-client -swb",
+    //     "on-click": "swaync-client -t -sw",
+    //     "on-click-right": "swaync-client -d -sw",
+    //     "escape": true
+    // },
     "custom/rfkill": {
         "tooltip": false,
         "format": "{text}",

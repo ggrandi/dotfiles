@@ -138,6 +138,8 @@ riverctl map normal Super F toggle-fullscreen
 # use p for previous tags
 riverctl map normal Super P focus-previous-tags
 riverctl map normal Super+Shift P send-to-previous-tags
+riverctl map normal Super N focus-next-tags
+riverctl map normal Super+Shift N send-to-next-tags
 
 # close latest notification
 riverctl map normal Super Escape spawn 'swaync-client --close-latest'
@@ -210,9 +212,9 @@ riverctl rule-add -app-id 'it.mijorus.smile' tags $all_tags
 riverctl border-width 1
 
 # start systemd
+riverctl spawn "systemctl --user set-environment XDG_CURRENT_DESKTOP=river"
+riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
-riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
-riverctl spawn "systemctl --user restart xdg-desktop-portal.service"
 
 # set dark theme for gtk apps
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
