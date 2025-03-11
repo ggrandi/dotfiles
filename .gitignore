@@ -8,6 +8,8 @@
 !.config/
 .config/*
 
+!.config/starship.toml
+
 !.config/alacritty/
 !.config/alacritty/**
 
