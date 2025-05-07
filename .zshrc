@@ -99,6 +99,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # ---
 export EDITOR=nvim
+export MANPAGER='nvim +Man!'
 
 # aliases
 alias nvimconfig="$EDITOR ~/.config/nvim/"
@@ -171,9 +172,9 @@ else
 
   export PNPM_HOME="/home/giovannigrandi/.local/share/pnpm"
 
-  export MANPATH="/usr/local/texlive/2024/texmf-dist/doc/man:$MANPATH"
-  export INFOPATH="/usr/local/texlive/2024/texmf-dist/doc/info:$INFOPATH"
-  export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
+  export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"
+  export INFOPATH="/usr/local/texlive/2025/texmf-dist/doc/info:$INFOPATH"
+  export PATH="/usr/local/texlive/2025/bin/x86_64-linux:$PATH"
 
   export PATH="$HOME/.elan/bin:$PATH"
 

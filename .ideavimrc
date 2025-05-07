@@ -16,7 +16,7 @@ set idearefactormode=visual
 set ignorecase
 set smartcase
 
-set clipboard+=unnamed
+set clipboard=ideaput
 
 " Do incremental searching.
 set incsearch
