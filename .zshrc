@@ -99,7 +99,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # ---
 export EDITOR=nvim
-export MANPAGER='nvim +Man!'
+# export MANPAGER='nvim +Man!'
 
 # aliases
 alias nvimconfig="$EDITOR ~/.config/nvim/"

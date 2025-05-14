@@ -27,12 +27,14 @@ set incsearch
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
-
 " vim surround
 Plug 'tpope/vim-surround'
 
-"" idea vim which key
-set which-key
+set mini-ai
+
+set NERDTree
+
+" set which-key
 set notimeout
 let g:WhichKey_ShowVimActions = 'true'
 
@@ -52,6 +54,9 @@ nmap <leader>co <Action>(OptimizeImports)
 
 let g:WhichKeyDesc_code_generate = '<leader>cg [C]ode [G]enerate'
 nmap <leader>cg <Action>(Generate)
+
+let g:WhichKeyDesc_code_action = '<leader>ca [C]ode [A]ctions'
+nmap <leader>ca <Action>(ShowIntentionActions)
 
 let g:WhichKeyDesc_search = '<leader><Space> Search Everywhere'
 nmap <leader><Space> <Action>(SearchEverywhere)
