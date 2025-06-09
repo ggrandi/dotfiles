@@ -38,8 +38,12 @@ set NERDTree
 set notimeout
 let g:WhichKey_ShowVimActions = 'true'
 
-let g:WhichKeyDesc_gy = 'gy Go To T[y]pe Declaration'
+let g:WhichKeyDesc_gy = 'gy [g]o to T[y]pe Declaration'
 nmap gy <Action>(GotoTypeDeclaration)
+
+let g:WhichKeyDesc_gy = 'gs [g]o to [s]uper Declaration'
+nmap gs <Action>(GotoSuperMethod)
+
 
 let g:WhichKeyDesc_code = '<leader>c +Code'
 
