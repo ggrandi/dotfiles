@@ -1,0 +1,70 @@
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+
+# set up the username and email based on the remote
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+    path = ./config-github
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+    path = ./config-github
+[includeIf "hasconfig:remote.*.url:git@gitlab.ewi.tudelft.nl:*/**"]
+    path = ./config-gitlab-ewi
+
+[init]
+	defaultbranch = main
+
+[core]
+	autocrlf = input
+  compression = 9
+  preloadIndex = true
+
+[diff]
+  renames = copies
+
+[blame]
+    coloring = highlightRecent
+    date = relative
+
+[rerere]
+	enabled = true
+
+[alias]
+	force = push --force-with-lease
+
+[pull]
+  ff = only
+
+[push]
+	autoSetupRemote = true
+
+[rebase]
+	updateRefs = true
+  autoSquash = true
+  missingCommitsCheck = warn
+
+[credential]
+	helper = /usr/lib/git-core/git-credential-libsecret
+
+[merge]
+	tool = nvimdiff
+
+[transfer]
+    fsckObjects = true
+
+[receive]
+    fsckObjects = true
+
+[fetch]
+    fsckObjects = true
+
+[pack]
+    threads = 0
+    windowMemory = 1g

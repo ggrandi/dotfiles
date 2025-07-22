@@ -101,6 +101,10 @@ let g:WhichKeyDesc_gh = '<leader>gh +[H]unk'
 let g:WhichKeyDesc_ghr = '<leader>ghr [G]it [H]unk [R]eset'
 nmap <leader>ghr = <Action>(Vcs.RollbackChangedLines);
 
+let g:WhichKeyDesc_ghb = '<leader>ghr [G]it [H]unk [B]lame'
+nmap <leader>ghb = <Action>(Annotate);
+
+
 
 let g:WhichKeyDesc_j = '<leader>j +[J]ava'
 

@@ -166,7 +166,7 @@ else
 
   export nvm() {
     lazy_load_nvm
-    node $@
+    nvm $@
   }
   # [[ $DBG == '1' ]] && echo "6.2 $(date +%T.%N)"
 
@@ -188,6 +188,8 @@ else
   export ELECTRON_OZONE_PLATFORM_HINT=auto
 
   export CXXFLAGS="${CXXFLAGS} -fdiagnostics-color=always"
+
+  export PATH="$PATH:/home/giovannigrandi/.local/share/coursier/bin"
 fi
 
 

@@ -19,6 +19,9 @@
 !.config/gammastep/
 !.config/gammastep/**
 
+!.config/git/
+!.config/git/**
+
 !.config/nvim/
 !.config/nvim/**
 
