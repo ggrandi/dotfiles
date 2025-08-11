@@ -33,7 +33,7 @@
         "timezone": "Europe/Amsterdam",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
-    },
+   },
     "cpu": {
         "format": "{usage}% ",
         "tooltip": false
@@ -50,7 +50,7 @@
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", "", ""]
     },
     "backlight": {
         // "device": "acpi_video1",
@@ -64,8 +64,8 @@
             "critical": 15
         },
         "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
+        "format-charging": "{capacity}% 󰚥",
+        "format-plugged": "{capacity}% 󰚥",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
@@ -84,8 +84,8 @@
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
@@ -119,13 +119,13 @@
     //     "on-click-right": "swaync-client -d -sw",
     //     "escape": true
     // },
-    "custom/rfkill": {
-        "tooltip": false,
-        "format": "{text}",
-        "return-type": "json",
-        "exec-if": "which rfkill",
-        "exec": "rfkill event | awk '{printf \"{\\\"text\\\": \\\"%s\\\", \\\"class\\\": \\\"\\\", \\\"properties\\\": \\\"\\\", \\\"tooltip\\\": \\\"\\\",}\\n\", $10 ? \"󰀝\" : \"\" }'"
-	//"hide-empty-text": true
-    }
+    // "custom/rfkill": {
+    //     "tooltip": false,
+    //     "format": "{text}",
+    //     "return-type": "json",
+    //     "exec-if": "which rfkill",
+    //     "exec": "rfkill event | awk '{printf \"{\\\"text\\\": \\\"%s\\\", \\\"class\\\": \\\"\\\", \\\"properties\\\": \\\"\\\", \\\"tooltip\\\": \\\"\\\",}\\n\", $10 ? \"󰀝\" : \"\" }'"
+    //     "hide-empty-text": true
+    // },
 }
 

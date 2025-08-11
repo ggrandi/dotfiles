@@ -266,5 +266,7 @@ poweralertd &
 
 gammastep -m wayland &
 
+wayland-pipewire-idle-inhibit &
+
 # focus tag 3 on start
 riverctl set-focused-tags 4
