@@ -1,3 +1,7 @@
 [user]
 	name = ggrandi
 	email = 49359646+ggrandi@users.noreply.github.com
+  signingkey = E7452E9B0858AEB33D7C294980EDCB43B5576E05
+
+[commit]
+  gpgsign = true

@@ -19,7 +19,7 @@ riverctl input $touchpad click-method clickfinger
 riverctl input $touchpad disable-while-typing disabled
 
 # set the keyboard-layout
-riverctl keyboard-layout -variant "altgr-intl" -options "caps:escape_shifted_capslock,compose:lwin-altgr,grp:shifts_toggle" us
+riverctl keyboard-layout -variant "altgr-intl" -options "caps:escape,compose:lwin-altgr,grp:shifts_toggle" us
 
 # Super+Return to start an instance of alacritty
 riverctl map normal Super Return spawn alacritty

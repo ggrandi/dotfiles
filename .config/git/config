@@ -15,8 +15,18 @@
     path = ./config-github
 [includeIf "hasconfig:remote.*.url:https://github.com/**"]
     path = ./config-github
+[includeIf "hasconfig:remote.*.url:git@gitlab.com:*/**"]
+    path = ./config-gitlab
+[includeIf "hasconfig:remote.*.url:https://gitlab.com/**"]
+    path = ./config-gitlab
+[includeIf "hasconfig:remote.*.url:https://git.overleaf.com/**"]
+    path = ./config-overleaf
 [includeIf "hasconfig:remote.*.url:git@gitlab.ewi.tudelft.nl:*/**"]
     path = ./config-gitlab-ewi
+[includeIf "hasconfig:remote.*.url:https://codeberg.org/**"]
+    path = ./config-codeberg
+[includeIf "hasconfig:remote.*.url:git@codeberg.org:*/**"]
+    path = ./config-codeberg
 
 [init]
 	defaultbranch = main

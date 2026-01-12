@@ -56,6 +56,9 @@ zle -N up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
+autoload -z edit-command-line
+zle -N edit-command-line
+
 bindkey -v
 bindkey -M vicmd '^p' up-line-or-beginning-search
 bindkey -M vicmd '^n' down-line-or-beginning-search
@@ -64,6 +67,7 @@ bindkey -M viins '^n' down-line-or-beginning-search
 bindkey -M viins "^a" beginning-of-line
 bindkey -M viins "^e" end-of-line
 bindkey '^r' history-incremental-search-backward
+bindkey "^x^e" edit-command-line
 # bindkey ' ' magic-space
 
 
@@ -74,12 +78,12 @@ HISTSIZE=1000000
 HISTFILE=~/.zsh_history
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
-setopt appendhistory
+setopt inc_append_history
 setopt sharehistory
 setopt hist_ignore_space
-setopt hist_ignore_all_dups
-setopt hist_save_no_dups
-setopt hist_ignore_dups
+# setopt hist_ignore_all_dups
+# setopt hist_save_no_dups
+# setopt hist_ignore_dups
 setopt hist_find_no_dups
 
 function stop_history() {
@@ -170,7 +174,7 @@ else
   }
   # [[ $DBG == '1' ]] && echo "6.2 $(date +%T.%N)"
 
-  export PNPM_HOME="/home/giovannigrandi/.local/share/pnpm"
+  export PNPM_HOME="$HOME/.local/share/pnpm"
 
   export MANPATH="/usr/local/texlive/2025/texmf-dist/doc/man:$MANPATH"
   export INFOPATH="/usr/local/texlive/2025/texmf-dist/doc/info:$INFOPATH"
@@ -183,13 +187,17 @@ else
   # enable haskell packages
   export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 
-  export PATH="$HOME/.nix-profile/bin:$PATH"
+  # export PATH="$HOME/.nix-profile/bin:$PATH"
 
   export ELECTRON_OZONE_PLATFORM_HINT=auto
 
   export CXXFLAGS="${CXXFLAGS} -fdiagnostics-color=always"
 
-  export PATH="$PATH:/home/giovannigrandi/.local/share/coursier/bin"
+  export PATH="$PATH:$HOME/.local/share/coursier/bin"
+
+  export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+  export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
 fi
 
 
@@ -236,4 +244,4 @@ eval "$(starship init zsh)"
 
 # [[ $DBG == '1' ]] && echo "9   $(date +%T.%N)"
 
-export QSYS_ROOTDIR="/home/giovannigrandi/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/23.1/quartus/sopc_builder/bin"
+export QSYS_ROOTDIR="$HOME/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/23.1/quartus/sopc_builder/bin"

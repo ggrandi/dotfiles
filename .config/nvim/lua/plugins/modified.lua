@@ -2,6 +2,7 @@ return {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
+		optional = true,
 		opts = { flavour = "macchiato" },
 	},
 	{
@@ -44,5 +45,9 @@ return {
 		opts = {
 			sort = { "local", "order", "alphanum", "mod" },
 		},
+	},
+	{
+		"nvim-mini/mini.pairs",
+		enabled = false,
 	},
 }
